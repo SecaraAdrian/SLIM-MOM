@@ -1,0 +1,79 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Slim Mom API",
+        "description": "API pentru gestionarea caloriilor și produselor consumate"
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "schemes": ["http"],
+    "paths": {
+        "/auth/register": {
+            "post": {
+                "summary": "Înregistrează un utilizator nou",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": { "type": "string" },
+                                "password": { "type": "string" }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Utilizator înregistrat cu succes"
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "summary": "Deloghează utilizatorul curent",
+                "responses": {
+                    "200": {
+                        "description": "Logout successful"
+                    }
+                }
+            }
+        },
+        "/kcal/daily-kcal": {
+            "get": {
+                "summary": "Obține aportul zilnic public de calorii și lista de produse nerecomandate",
+                "responses": {
+                    "200": {
+                        "description": "Informații publice despre calorii și produse nerecomandate"
+                    }
+                }
+            }
+        },
+        "/kcal/private-daily-kcal": {
+            "get": {
+                "summary": "Obține aportul zilnic privat și mesajul personalizat pentru utilizatorul autentificat",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": "Token JWT al utilizatorului"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informații private despre calorii și mesajul personalizat"
+                    },
+                    "401": {
+                        "description": "Not authorized"
+                    }
+                }
+            }
+        }
+    }
+}
